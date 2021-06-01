@@ -85,53 +85,8 @@
         </div>
         <!-- Modal -->
         <product-modal :temp-product="tempProduct" @update-product="updateProduct"></product-modal>
-        <!-- 刪除btn彈出modal -->
-        <div
-          id="delProductModal"
-          ref="delProductModal"
-          class="modal fade"
-          tabindex="-1"
-          aria-labelledby="delProductModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0">
-              <div class="modal-header bg-danger text-white">
-                <h5 id="delProductModalLabel" class="modal-title">
-                  <span>刪除產品</span>
-                </h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                是否刪除
-                <strong class="text-danger">{{tempProduct.title}}</strong>
-                商品(刪除後將無法恢復)。
-              </div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-outline-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  取消
-                </button>
-                <button
-                  @click="deleteProduct"
-                  type="button"
-                  class="btn btn-danger"
-                >
-                  確認刪除
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal -->
+        <!-- 刪除按鈕彈出 Modal -->
+        <del-product-modal :temp-product="tempProduct" @delete-product="deleteProduct"></del-product-modal>
       </div>
     </div>
     <script
@@ -150,6 +105,54 @@
       crossorigin="anonymous"
     ></script>
     <script src="./assets/js/config.js"></script>
+    <!-- 將 deleteModal x-template 元件化 -->
+    <script type="text/x-template" id="delModal-template">
+      <div
+      id="delProductModal"
+      ref="delProductModal"
+      class="modal fade"
+      tabindex="-1"
+      aria-labelledby="delProductModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0">
+          <div class="modal-header bg-danger text-white">
+            <h5 id="delProductModalLabel" class="modal-title">
+              <span>刪除產品</span>
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            是否刪除
+            <strong class="text-danger">{{tempProduct.title}}</strong>
+            商品(刪除後將無法恢復)。
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              取消
+            </button>
+            <button
+              @click="$emit('delete-product',tempProduct)"
+              type="button"
+              class="btn btn-danger"
+            >
+              確認刪除
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </script>
     <!-- vue -->
     <script src="./assets/js/vue_products.js" type="module"></script>
   </body>

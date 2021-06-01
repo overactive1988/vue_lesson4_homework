@@ -62,15 +62,18 @@ const app = createApp({
         })
     },
     // 取得產品列表
-    getData(page = 1) { // 參數預設值
+    getData(num = 1) { // 參數預設值
       axios
-        .get(`${baseUrl}/api/${apiPath}/admin/products?page=${page}`)
+        .get(`${baseUrl}/api/${apiPath}/admin/products?page=${num}`)
         .then((res) => {
           if (res.data.success) {
-            this.products = res.data.products
-            this.pagination = res.data.pagination
+            // this.products = res.data.products
+            // this.pagination = res.data.pagination
+            // 解構寫法
+            const { products, pagination} = res.data;
+            this.products = products
+            this.pagination = pagination
             console.log(res.data)
-            console.log(this.pagination);
             this.getAllproducts() // 重新取得產品數量
           }
         })
@@ -162,38 +165,7 @@ const app = createApp({
 })
 
 // 定義全域元件 須放置在 createApp 後方，mount之前
-// app.component('pagination', {
-//   props: ['page'],
-//   template: `<nav aria-label="Page navigation example">
-//   <ul class="pagination">
-      
-//       <li class="page-item" :class="{'disabled': !page.has_pre}">
-//       <a class="page-link" href="#" aria-label="Previous"
-//       @click="$emit('get-product',page.current_page -1)">
-//           <span aria-hidden="true">&laquo;</span>
-//       </a>
-//       </li>
-  
-//       <li class="page-item"
-//       :class="{'active': item === page.current_page}" 
-//       v-for="(item,index) in page.total_pages" :key="'pagination'+index">
-//       <a class="page-link" href="#" @click="$emit('get-product',item)">{{item}}</a>
-//       </li>
-      
-//       <li class="page-item" :class="{'disabled': !page.has_next}">
-//       <a class="page-link" href="#" aria-label="Next"
-//       @click="$emit('get-product',page.current_page +1)">
-//           <span aria-hidden="true">&raquo;</span>
-//       </a>
-//       </li>
-  
-//   </ul>
-//   </nav>`,
-//   created(){
-//   // console.log(this.page)
-//   },
-// })
-
+// 商品 Modal
 app.component('productModal',{
   props: ['tempProduct'],
   template: `<div
@@ -405,7 +377,18 @@ app.component('productModal',{
       </div>
     </div>
   </div>
-</div>`,
+  </div>`,
+  methods: {
+    createImages() {
+      this.tempProduct.imagesUrl = ['']
+    },
+  }
+})
+
+// 將 deleteModal x-template 元件化
+app.component('delProductModal',{
+  props: ['tempProduct'],
+  template: "#delModal-template",
 })
 
 app.mount('#app')
