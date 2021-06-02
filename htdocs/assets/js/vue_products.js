@@ -167,7 +167,15 @@ const app = createApp({
 // 定義全域元件 須放置在 createApp 後方，mount之前
 // 商品 Modal
 app.component('productModal',{
-  props: ['tempProduct'],
+  props: {
+    tempProduct: {
+      type: Object, // 驗證型別
+      default(){
+        return {
+        }
+      }
+    },
+  },
   template: `<div
   id="productModal"
   ref="productModal"
@@ -387,8 +395,15 @@ app.component('productModal',{
 
 // 將 deleteModal x-template 元件化
 app.component('delProductModal',{
-  props: ['tempProduct'],
+  props: {
+    tempProduct: {
+      type: Object,
+      default(){
+        return {
+        }
+      }
+    },
+  },
   template: "#delModal-template",
 })
-
 app.mount('#app')
