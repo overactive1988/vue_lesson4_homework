@@ -37,7 +37,7 @@
               請先登入
             </h1>
             <div class="col-auto">
-              <form id="form" class="form-signin">
+              <form id="form" class="form-signin" @click="login" @submit.prevent>
                 <div class="form-floating mb-3">
                   <input
                     type="email"
@@ -65,7 +65,6 @@
                   class="login-btn btn btn-lg text-dark w-100 mt-3 border-double"
                   type="button"
                   id="login"
-                  @click="login"
                 >
                   登入
                 </button>

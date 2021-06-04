@@ -159,9 +159,9 @@ const app = createApp({
       })
     },
   },
-  created() {
-    // 元件生成，必定會執行的項目
-  },
+  // created() {
+  //   // 元件生成，必定會執行的項目
+  // },
 })
 
 // 定義全域元件 須放置在 createApp 後方，mount之前
